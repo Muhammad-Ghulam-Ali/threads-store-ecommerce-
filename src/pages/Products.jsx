@@ -84,7 +84,7 @@ const Products = ({ filteredProducts, selectFilter, setSelectFilter, setSearchTe
                                         <p className='font-bold text-[#0c0c0c]'>{elem.name}</p>
                                     </div>
                                     <div className="price">
-                                        <p className='font-bold text-[#0c0c0c]'>Rs. {elem.price}</p>
+                                        <p className='font-bold text-[#0c0c0c]'>Rs. {(elem.price).toLocaleString()}</p>
                                     </div>
                                 </div>
                             </div>

@@ -198,7 +198,6 @@ const Checkout = ({selectedProducts, setSelectedProducts}) => {
                <button 
                onClick={() => {
                 setFormStep(formStep + 1)
-                setSelectedProducts([])
                }}
                
                className='bg-[#0c0c0c] py-3 px-12 rounded-md cursor-pointer text-[#f4f1ec] text-[12px] font-bold hover:bg-[#222222]'>PLACE ORDER →</button>
@@ -221,7 +220,11 @@ const Checkout = ({selectedProducts, setSelectedProducts}) => {
               <p>Estimated delivery: 3-5 business days.</p>
             </div>
             <div className="button">
-             <Link to={'/products'}><button className='bg-[#0c0c0c] text-[#f4f1ec] text-[12px] font-black py-4 px-12 rounded-md cursor-pointer hover:bg-[#c9a96e] hover:text-[#0c0c0c]'>CONTINUE SHOPPING</button></Link>
+             <Link to={'/products'}><button 
+             onClick={() => {
+              setSelectedProducts([])
+             }}
+             className='bg-[#0c0c0c] text-[#f4f1ec] text-[12px] font-black py-4 px-12 rounded-md cursor-pointer hover:bg-[#c9a96e] hover:text-[#0c0c0c]'>CONTINUE SHOPPING</button></Link>
             </div>
           </div>
           </div>
