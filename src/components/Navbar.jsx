@@ -1,11 +1,13 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 
 
 const Navbar = ({searchText, setSearchText, selectFilter, setSelectFilter,showCart, setShowCart, selectedProducts}) => {
 
+  const navigate = useNavigate()
   
   return (
     <div className='fixed top-0 left-0 right-0 z-50 py-4 px-14  items-center justify-between bg-[#f4f1ec] border-b border-b-[#e5e1da] hidden lg:flex'>
@@ -53,6 +55,7 @@ const Navbar = ({searchText, setSearchText, selectFilter, setSelectFilter,showCa
         <input 
         onChange={(e) => {
           setSearchText(e.target.value)
+          if (e.target.value) navigate ('/products')
         }}
         className={`py-1 px-5 border border-[#6e6e6e] rounded-2xl w-70`} type="text" placeholder='Search product...' />
       <i className="fa fa-search text-[#6e6e6e] hover:text-[#0c0c0c] cursor-pointer absolute top-1/2 -translate-y-1/2 right-3"></i>
