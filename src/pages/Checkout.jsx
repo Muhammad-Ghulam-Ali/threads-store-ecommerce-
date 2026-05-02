@@ -5,12 +5,20 @@ import { useState } from 'react'
 const Checkout = ({selectedProducts, setSelectedProducts}) => {
 
   const [formStep, setFormStep] = useState(1)
+  const [toastMsg, setToastMsg] = useState("")
+  const [showToast, setShowToast] = useState(false)
+
 
   const submitHandler = (e) => {
     e.preventDefault()
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    const phoneValid = /^(\+92|0)[0-9]{10}$/.test(phoneNumber.replace(/\s/g, ''))
+  
+    if (!emailValid) { setToastMsg('Enter a valid email'); setShowToast(true); setTimeout(() => setShowToast(false), 2800); return }
+    if (!phoneValid) { setToastMsg('Enter a valid phone number'); setShowToast(true); setTimeout(() => setShowToast(false), 2800); return }
+    
     setFormStep(formStep + 1)
   }
-
   
 
   // Form inputs data
@@ -39,7 +47,6 @@ const Checkout = ({selectedProducts, setSelectedProducts}) => {
       }
     )
   }
-  console.log(customerData);
 
 
   return (
@@ -277,6 +284,12 @@ const Checkout = ({selectedProducts, setSelectedProducts}) => {
         </div>
       </div>
     </div>
+
+    {toastMsg && (
+      <div className={`fixed bottom-8 left-1/2 -translate-x-1/2 bg-[#0c0c0c] text-[#f4f1ec] px-7 py-3 text-[13px] flex items-center gap-3 transition-all duration-300 ${showToast ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'}`}>
+      <i className="fa fa-check-circle text-[#c9a96e]"></i> {toastMsg}
+    </div>
+    )}
     </>
   )
 }
