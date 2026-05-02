@@ -159,7 +159,7 @@ const Checkout = ({selectedProducts, setSelectedProducts}) => {
                <input 
                value={instructions}
                onChange={(e) => setInstructions(e.target.value)}
-               className='bg-[#ede9e2] text-[14px] border border-[#d1cec8] py-4 px-4 rounded-md' type="text" placeholder='Any special instruction...' required />
+               className='bg-[#ede9e2] text-[14px] border border-[#d1cec8] py-4 px-4 rounded-md' type="text" placeholder='Any special instruction...'  />
              </div>
            </div>
            <div className="buttons flex items-center justify-between">
@@ -196,7 +196,11 @@ const Checkout = ({selectedProducts, setSelectedProducts}) => {
              </div>
              <div className="continueBtn">
                <button 
-               onClick={() => setFormStep(formStep + 1)}
+               onClick={() => {
+                setFormStep(formStep + 1)
+                setSelectedProducts([])
+               }}
+               
                className='bg-[#0c0c0c] py-3 px-12 rounded-md cursor-pointer text-[#f4f1ec] text-[12px] font-bold hover:bg-[#222222]'>PLACE ORDER →</button>
              </div>
            </div>
