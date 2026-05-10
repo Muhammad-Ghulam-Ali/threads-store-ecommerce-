@@ -13,6 +13,7 @@ import Products from './pages/Products'
 import ProductDetail from './pages/ProductDetail'
 import productsData from './data/productsData'
 import Checkout from './pages/Checkout'
+import AdminPanel from './pages/Adminpanel'   // ← add this
 
 
 function App() {
@@ -29,9 +30,8 @@ function App() {
   }
 
   // Local storage
-
   useEffect(function(){
-    const a =  JSON.parse(localStorage.getItem("cartData"));
+    const a = JSON.parse(localStorage.getItem("cartData"));
     if (a) {
       setSelectedProducts(a)
     }
@@ -49,19 +49,29 @@ function App() {
     return matchSearch && filterMatch
   })
 
+  // Check if current route is admin — hide Navbar/Cart on admin page
+  const isAdmin = window.location.pathname === '/admin-demo'
 
   return (
     <>
-      <Navbar searchText={searchText} setSearchText={setSearchText} selectFilter={selectFilter} setSelectFilter={setSelectFilter} showCart={showCart} setShowCart={setShowCart} selectedProducts={selectedProducts} />
-      <Sidebar searchText={searchText} setSearchText={setSearchText} selectFilter={selectFilter} setSelectFilter={setSelectFilter} showCart={showCart} setShowCart={setShowCart} selectedProducts={selectedProducts} />
+      {!isAdmin && (
+        <>
+          <Navbar searchText={searchText} setSearchText={setSearchText} selectFilter={selectFilter} setSelectFilter={setSelectFilter} showCart={showCart} setShowCart={setShowCart} selectedProducts={selectedProducts} />
+          <Sidebar searchText={searchText} setSearchText={setSearchText} selectFilter={selectFilter} setSelectFilter={setSelectFilter} showCart={showCart} setShowCart={setShowCart} selectedProducts={selectedProducts} />
+        </>
+      )}
+
       <Routes>
         <Route path='/' element={<Home selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />} />
-        <Route path='/products' element={<Products filteredProducts={filteredProducts} selectFilter={selectFilter} setSelectFilter={setSelectFilter} setSearchText={setSearchText} selectedProducts={selectedProducts} setSelectedProducts = {setSelectedProducts} />} />
+        <Route path='/products' element={<Products filteredProducts={filteredProducts} selectFilter={selectFilter} setSelectFilter={setSelectFilter} setSearchText={setSearchText} selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />} />
         <Route path='/productdetail/:id' element={<ProductDetail productsData={productsData} selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />} />
         <Route path='/checkout' element={<Checkout selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />} />
+        <Route path='/admin-demo' element={<AdminPanel />} />  {/* ← hidden admin route */}
       </Routes>
 
-      <Cart className="absolute top-0 left-0" showCart={showCart} setShowCart={setShowCart} selectedProducts={selectedProducts} deleteCartItem={deleteCartItem} />
+      {!isAdmin && (
+        <Cart className="absolute top-0 left-0" showCart={showCart} setShowCart={setShowCart} selectedProducts={selectedProducts} deleteCartItem={deleteCartItem} />
+      )}
     </>
   )
 }

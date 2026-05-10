@@ -48,6 +48,33 @@ const Checkout = ({selectedProducts, setSelectedProducts}) => {
     )
   }
 
+  // ── Save order to localStorage ──────────────────────────────────────────────
+  const saveOrder = () => {
+    const totalAmount = selectedProducts.reduce(
+      (acc, item) => acc + item.price * item.quantity, 0
+    )
+
+    const newOrder = {
+      id: Date.now(),
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      address,
+      city,
+      province,
+      payment,
+      instructions,
+      items: selectedProducts,
+      totalAmount,
+      placedAt: new Date().toISOString(),
+    }
+
+    const existing = JSON.parse(localStorage.getItem("ordersData") || "[]")
+    localStorage.setItem("ordersData", JSON.stringify([...existing, newOrder]))
+  }
+  // ───────────────────────────────────────────────────────────────────────────
+
 
   return (
     <>
@@ -204,9 +231,9 @@ const Checkout = ({selectedProducts, setSelectedProducts}) => {
              <div className="continueBtn">
                <button 
                onClick={() => {
+                saveOrder()           // ← saves order before confirming
                 setFormStep(formStep + 1)
                }}
-               
                className='bg-[#0c0c0c] py-3 px-12 rounded-md cursor-pointer text-[#f4f1ec] text-[12px] font-bold hover:bg-[#222222]'>PLACE ORDER →</button>
              </div>
            </div>
