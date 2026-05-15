@@ -32,19 +32,28 @@ const Navbar = ({searchText, setSearchText, selectFilter, setSelectFilter,showCa
           </li>
           <li>
             <a 
-            onClick={() => setSelectFilter("T-Shirts")}
+            onClick={() => {
+              navigate ('/products')
+              setSelectFilter("T-Shirts")
+            }}
             className={`cursor-pointer ${selectFilter === "T-Shirts" && location.pathname !== "/" ? "text-black underline underline-offset-8 decoration-2 underline-black" : ""}`}
             >T-SHIRTS</a>
           </li>
           <li>
             <a
-            onClick={() => setSelectFilter("Hoodies")}
+            onClick={() => {
+              navigate ('/products')
+              setSelectFilter("Hoodies")
+            }}
             className={`cursor-pointer ${selectFilter === "Hoodies" && location.pathname !== "/" ? "text-black underline underline-offset-8 decoration-2 underline-black" : ""}`}
             >HOODIES</a>
           </li>
           <li>
             <a
-            onClick={() => setSelectFilter("Pants")}
+            onClick={() => {
+              navigate ('/products')
+              setSelectFilter("Pants")
+            }}
             className={`cursor-pointer ${selectFilter === "Pants" && location.pathname !== "/" ? "text-black underline underline-offset-8 decoration-2 underline-black" : ""}`}
             >PANTS</a>
           </li>  
